@@ -1,16 +1,24 @@
 package controllers
 
 import (
+	"log"
+	"mime/multipart"
 	"namgay/jampa/models"
 	"net/http"
 	"time"
 
 	"github.com/gin-gonic/gin"
+	"github.com/go-playground/validator/v10"
+	"github.com/google/uuid"
 )
 
 func GetCampaigns(c *gin.Context) {
-	var campaigns []models.Campaign
-	models.DB.Find(&campaigns)
+	status := c.Query("status")
+	query := c.Query("query")
+	page := c.Query("page")
+	pageSize := c.Query("pageSize")
+
+	campaigns := models.FetchCampaigns(status, query, page, pageSize)
 
 	c.IndentedJSON(http.StatusOK, gin.H{"data": campaigns})
 }
@@ -18,7 +26,7 @@ func GetCampaigns(c *gin.Context) {
 func GetCampaign(c *gin.Context) {
 	var campaign models.Campaign
 
-	if err:= models.DB.Where("id = ?", c.Param("id")).First(&campaign).Error; err != nil {
+	if err:= models.DB.Where("id = ?", c.Param("id")).Preload("Image").First(&campaign).Error; err != nil {
 		c.IndentedJSON(http.StatusBadRequest, gin.H{"error": "Record not found"})
 		return
 	}
@@ -29,12 +37,31 @@ func GetCampaign(c *gin.Context) {
 func CreateCampaign(c *gin.Context) {
 	var input createCampaignInput
 	
-	if err:= c.ShouldBindJSON(&input); err != nil {
+	if err:= c.ShouldBind(&input); err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+		return
+	}
+
+	var uuid = uuid.New().String() + ".jpg"
+
+	var filePath = "./public/images/" + uuid
+
+	if err:= c.SaveUploadedFile(input.Image, filePath); err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 		return
 	}
 	
-	campaign := models.Campaign{ Header: input.Header, SubHeader: input.SubHeader, Description: input.Description, EndDate: input.EndDate, Category: input.Category }
+	campaign := models.Campaign{ 
+		Header: input.Header, 
+		SubHeader: input.SubHeader, 
+		Description: input.Description, 
+		EndDate: input.EndDate, 
+		Category: input.Category,
+		TargetAmount: input.TargetAmount,
+		Status: "active",
+		Image: models.Image{ ImageUrl: c.Request.Host + "/public/images/" + uuid }, 
+	}
+
 	result := models.DB.Create(&campaign);
 
 	if result.Error != nil {
@@ -53,7 +80,7 @@ func UpdateCampaign(c *gin.Context) {
 	}	
 
 	var input updateCampaignInput
-	if err:= c.ShouldBindJSON(&input); err != nil {
+	if err:= c.ShouldBind(&input); err != nil {
 		c.IndentedJSON(http.StatusBadRequest, gin.H{"error": err})
 		return
 	}
@@ -74,17 +101,33 @@ func DeleteCampaign(c *gin.Context) {
 }
 
 type createCampaignInput struct {
-	Header string `json:"header" binding:"required"`
-	SubHeader string `json:"sub_header" binding:"required"`
-	Description string `json:"description" binding:"required"`
-	Category string `json:"category" binding:"required"`
-	EndDate time.Time `json:"end_date"`
+	Header string `form:"header" binding:"required,max=50"`
+	SubHeader string `form:"sub_header" binding:"required,max=100"`
+	Description string `form:"description" binding:"required,max=500"`
+	Category string `form:"category" binding:"required"`
+	EndDate time.Time `form:"end_date" binding:"CampaignDateValidation" time_format:"2006-01-02"`
+	Image *multipart.FileHeader `form:"image" binding:"required"`
+	TargetAmount int `form:"target_amount" binding:"required"`
 }
 
 type updateCampaignInput struct {
-	Header string `json:"header"`
-	SubHeader string `json:"sub_header"`
-	Description string `json:"description"`
-	Category string `json:"category"`
-	EndDate time.Time `json:"end_date"`
+	Header string `form:"header" binding:"max=50"`
+	SubHeader string `form:"sub_header" binding:"max=100"`
+	Description string `form:"description" binding:"max=500"`
+	Category string `form:"category"`
+	EndDate time.Time `form:"end_date" binding:"CampaignDateValidation" time_format:"2006-01-02"`
+	Image *multipart.FileHeader `form:"image"`
+	TargetAmount int `form:"target_amount"`
+}
+
+var CampaignDateValidation validator.Func = func(fl validator.FieldLevel) bool { 
+	date, ok := fl.Field().Interface().(time.Time)
+	log.Println(date)
+	if ok {
+		today := time.Now()
+		if today.After(date) {
+			return false 
+		}
+	}
+	return true
 }

@@ -4,6 +4,8 @@ go 1.17
 
 require (
 	github.com/gin-gonic/gin v1.7.7
+	github.com/go-playground/validator/v10 v10.4.1
+	github.com/google/uuid v1.3.0
 	github.com/jinzhu/gorm v1.9.16
 	gorm.io/driver/postgres v1.2.3
 	gorm.io/gorm v1.22.4
@@ -18,7 +20,6 @@ require (
 	github.com/go-delve/delve v1.8.0 // indirect
 	github.com/go-playground/locales v0.13.0 // indirect
 	github.com/go-playground/universal-translator v0.17.0 // indirect
-	github.com/go-playground/validator/v10 v10.4.1 // indirect
 	github.com/golang/protobuf v1.3.3 // indirect
 	github.com/google/go-dap v0.6.0 // indirect
 	github.com/hashicorp/golang-lru v0.5.4 // indirect
