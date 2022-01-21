@@ -17,7 +17,7 @@ type Donation struct {
 	AccountNumber string `json:"account_number" gorm:"type:varchar(25)"`
 	CardNumber string `json:"card_number" gorm:"type:varchar(25)"`
 	Cvv string `json:"cvv" gorm:"type:varchar(5)"`
-	ExpiryDate string `json:"expiry_time"`
+	ExpiryDate string `json:"expiry_date"`
 	CampaignId int `json:"campaign_id"`
 	Campaign Campaign
 }
@@ -37,6 +37,7 @@ func (d *Donation) AfterCreate(tx *gorm.DB) (err error) {
 	campaign.CollectedAmount = d.Amount + campaign.CollectedAmount
 	if (d.Amount + campaign.CollectedAmount) > campaign.TargetAmount {
 		campaign.Status = "completed"
+		campaign.DonationCount = campaign.DonationCount + 1
 	}
 	tx.Save(&campaign)
 
@@ -58,8 +59,10 @@ func FilterByCampaign(campaignId int) func(db *gorm.DB) *gorm.DB {
 
 func SortDonations(sortBy string) func(db *gorm.DB) *gorm.DB {
 	return func(db *gorm.DB) *gorm.DB {
-		if sortBy == "" {
+		if sortBy == "" || sortBy == "Recent" {
 			sortBy = "created_at"
+		} else {
+			sortBy = "amount" 
 		}
 		return db.Order(sortBy + " " + "desc")
 	}

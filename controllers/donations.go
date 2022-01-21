@@ -54,12 +54,12 @@ func GetDonations(c *gin.Context) {
 type DonationInput struct {
 	FirstName string `json:"first_name"`
 	LastName string `json:"last_name"`
-	Email string `json:"email" binding:"email"`
+	Email string `json:"email"`
 	PaymentMethod string `json:"payment_method" binding:"required,oneof=national international"`
 	Amount int `json:"amount" binding:"required"`
 	Bank string `json:"bank"`
 	AccountNumber string `json:"account_number"`
 	CardNumber string `json:"card_number"`
 	Cvv string `json:"cvv"`
-	ExpiryDate string `json:"expiry_time"`
+	ExpiryDate string `json:"expiry_date"`
 }

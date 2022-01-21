@@ -17,6 +17,7 @@ type Campaign struct {
 	Status string `json:"status" gorm:"default:active;not null"`
 	TargetAmount int `json:"target_amount" gorm:"not null"`
 	CollectedAmount int `json:"collected_amount" gorm:"default:0"`
+	DonationCount int `json:"donation_count" gorm:"default:0"`
 	Donations []Donation
 }
 

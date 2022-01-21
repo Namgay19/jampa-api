@@ -1,9 +1,13 @@
 package models
 
 import (
+	"fmt"
+	"log"
+	"os"
 	"strconv"
 	"time"
 
+	"github.com/joho/godotenv"
 	"gorm.io/driver/postgres"
 	"gorm.io/gorm"
 	"gorm.io/gorm/logger"
@@ -19,7 +23,17 @@ type Model struct {
 }
   
 func ConnectDatabase() {
-	dsn := "user=nenzin password=passwarps dbname=jampa_dev port=5432 sslmode=disable TimeZone=Asia/Thimphu"
+	err := godotenv.Load()
+  	if err != nil {
+    	log.Fatal("Error loading .env file")
+  	}
+
+	user := os.Getenv("DB_USER")  
+	password := os.Getenv("DB_PASSWORD")
+	dbname := os.Getenv("DB_NAME")
+	port := os.Getenv("DB_PORT")
+
+	dsn := fmt.Sprintf("user=%v password=%v dbname=%v port=%v sslmode=disable TimeZone=Asia/Thimphu", user, password, dbname, port)
 	database, err := gorm.Open(postgres.Open(dsn), &gorm.Config{Logger: logger.Default.LogMode(logger.Info)})
   
 	if err != nil {
@@ -43,10 +57,10 @@ func Paginate(page, pageSize string) func(db *gorm.DB) *gorm.DB {
 		}
 
 		switch {
-		case pageSize > 15:
-			pageSize = 15
-		case pageSize <= 10:
+		case pageSize > 10:
 			pageSize = 10
+		case pageSize <= 3:
+			pageSize = 3
 		}
 		
 		offset := (page - 1) * pageSize
