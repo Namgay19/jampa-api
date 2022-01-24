@@ -13,7 +13,7 @@ func setEnvironmentVariables() {
 	if !ok {
     	log.Panic("unable to get the current filename (e.g. __filename)")
 	}
-	runtime.Breakpoint()	
+
 	dir := filepath.Dir(file)
 
 	environmentPath := filepath.Join(dir, ".env")

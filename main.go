@@ -17,6 +17,7 @@ import (
 var router *gin.Engine
 
 func main() {
+	gin.SetMode(gin.ReleaseMode)
 	f, _ := os.Create("gin.log")
 	gin.DefaultWriter = io.MultiWriter(f, os.Stdout)
 	router = gin.New()
