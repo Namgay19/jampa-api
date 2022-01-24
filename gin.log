@@ -17,21 +17,4 @@
 Please check https://pkg.go.dev/github.com/gin-gonic/gin#readme-don-t-trust-all-proxies for details.
 [GIN-debug] Environment variable PORT is undefined. Using port :8080 by default
 [GIN-debug] Listening and serving HTTP on :8080
-::1 - [Sun, 23 Jan 2022 14:09:44 +06] "POST /campaigns HTTP/1.1 401 161.5µs "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:96.0) Gecko/20100101 Firefox/96.0" "
-::1 - [Sun, 23 Jan 2022 14:09:54 +06] "GET /campaigns?perPage=3 HTTP/1.1 200 2.4189ms "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:96.0) Gecko/20100101 Firefox/96.0" "
-::1 - [Sun, 23 Jan 2022 14:15:37 +06] "GET /campaigns?perPage=3 HTTP/1.1 200 2.1322ms "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:96.0) Gecko/20100101 Firefox/96.0" "
-::1 - [Sun, 23 Jan 2022 14:15:39 +06] "GET /public/images/40cea374-3377-4878-a004-2d1d903f0781.jpg HTTP/1.1 304 104.4µs "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:96.0) Gecko/20100101 Firefox/96.0" "
-::1 - [Sun, 23 Jan 2022 14:15:39 +06] "GET /public/images/28fb8cc5-90cc-4263-8731-eb5650827fca.jpg HTTP/1.1 304 63µs "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:96.0) Gecko/20100101 Firefox/96.0" "
-::1 - [Sun, 23 Jan 2022 14:15:39 +06] "GET /public/images/65c84474-5944-487d-a296-ff5e439890d5.jpg HTTP/1.1 304 73.4µs "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:96.0) Gecko/20100101 Firefox/96.0" "
-::1 - [Sun, 23 Jan 2022 14:15:52 +06] "GET /campaigns?perPage=3 HTTP/1.1 200 1.3443ms "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:96.0) Gecko/20100101 Firefox/96.0" "
-::1 - [Sun, 23 Jan 2022 14:15:52 +06] "GET /public/images/28fb8cc5-90cc-4263-8731-eb5650827fca.jpg HTTP/1.1 304 46.4µs "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:96.0) Gecko/20100101 Firefox/96.0" "
-::1 - [Sun, 23 Jan 2022 14:15:52 +06] "GET /public/images/65c84474-5944-487d-a296-ff5e439890d5.jpg HTTP/1.1 304 44.2µs "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:96.0) Gecko/20100101 Firefox/96.0" "
-::1 - [Sun, 23 Jan 2022 14:15:52 +06] "GET /public/images/40cea374-3377-4878-a004-2d1d903f0781.jpg HTTP/1.1 304 81.6µs "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:96.0) Gecko/20100101 Firefox/96.0" "
-::1 - [Sun, 23 Jan 2022 14:16:36 +06] "GET /campaigns?perPage=3 HTTP/1.1 200 1.1529ms "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:96.0) Gecko/20100101 Firefox/96.0" "
-::1 - [Sun, 23 Jan 2022 14:16:36 +06] "GET /public/images/28fb8cc5-90cc-4263-8731-eb5650827fca.jpg HTTP/1.1 304 49.3µs "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:96.0) Gecko/20100101 Firefox/96.0" "
-::1 - [Sun, 23 Jan 2022 14:16:36 +06] "GET /public/images/65c84474-5944-487d-a296-ff5e439890d5.jpg HTTP/1.1 304 63.8µs "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:96.0) Gecko/20100101 Firefox/96.0" "
-::1 - [Sun, 23 Jan 2022 14:16:36 +06] "GET /public/images/40cea374-3377-4878-a004-2d1d903f0781.jpg HTTP/1.1 304 48.5µs "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:96.0) Gecko/20100101 Firefox/96.0" "
-::1 - [Sun, 23 Jan 2022 14:18:38 +06] "GET /campaigns?perPage=3 HTTP/1.1 200 1.5447ms "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:96.0) Gecko/20100101 Firefox/96.0" "
-::1 - [Sun, 23 Jan 2022 14:18:40 +06] "GET /public/images/28fb8cc5-90cc-4263-8731-eb5650827fca.jpg HTTP/1.1 304 52.4µs "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:96.0) Gecko/20100101 Firefox/96.0" "
-::1 - [Sun, 23 Jan 2022 14:20:40 +06] "GET /campaigns?status=active&query=&page=1&pageSize=5 HTTP/1.1 200 1.9857ms "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:96.0) Gecko/20100101 Firefox/96.0" "
-::1 - [Sun, 23 Jan 2022 14:20:42 +06] "GET /public/images/28fb8cc5-90cc-4263-8731-eb5650827fca.jpg HTTP/1.1 304 54.3µs "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:96.0) Gecko/20100101 Firefox/96.0" "
+::1 - [Mon, 24 Jan 2022 19:25:28 +06] "GET /campaigns/44 HTTP/1.1 200 13.9097ms "PostmanRuntime/7.29.0" "
