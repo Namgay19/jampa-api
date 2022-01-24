@@ -2,12 +2,10 @@ package models
 
 import (
 	"fmt"
-	"log"
 	"os"
 	"strconv"
 	"time"
 
-	"github.com/joho/godotenv"
 	"gorm.io/driver/postgres"
 	"gorm.io/gorm"
 	"gorm.io/gorm/logger"
@@ -23,11 +21,6 @@ type Model struct {
 }
 
 func ConnectDatabase() {
-	err := godotenv.Load()
-	if err != nil {
-		log.Fatal("Error loading .env file")
-	}
-
 	user := os.Getenv("DB_USER")
 	password := os.Getenv("DB_PASSWORD")
 	dbname := os.Getenv("DB_NAME")

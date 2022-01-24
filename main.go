@@ -46,6 +46,8 @@ func main() {
 	router.Use(gin.Recovery())
 	time.Now()
 
+	setEnvironmentVariables()
+
 	models.ConnectDatabase()
 	initializeRoutes()
 	router.Static("/public", "./public")
