@@ -44,8 +44,9 @@ func CreateCampaign(c *gin.Context) {
 	}
 
 	var uuid = uuid.New().String() + ".jpg"
+	
 
-	var filePath = "./public/images/" + uuid
+	var filePath = "public/images/" + uuid
 
 	if err := c.SaveUploadedFile(input.Image, filePath); err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
