@@ -37,8 +37,8 @@ func (d *Donation) AfterCreate(tx *gorm.DB) (err error) {
 	campaign.CollectedAmount = d.Amount + campaign.CollectedAmount
 	if (d.Amount + campaign.CollectedAmount) > campaign.TargetAmount {
 		campaign.Status = "completed"
-		campaign.DonationCount = campaign.DonationCount + 1
 	}
+	campaign.DonationCount = campaign.DonationCount + 1
 	tx.Save(&campaign)
 
 	return
